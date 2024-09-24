@@ -1,0 +1,23 @@
+int potPin = A0;    // The analog pin where the potentiometer is connected
+int ledPin = 9;     // The PWM pin where the LED is connected
+int potValue = 0;   // Variable to store the potentiometer value
+int ledBrightness = 0; // Variable to store the LED brightness
+
+void setup() {
+  pinMode(ledPin, OUTPUT);   // Set the LED pin as output
+  Serial.begin(9600);        // Initialize serial communication at 9600 baud rate
+}
+
+void loop() {
+  potValue = analogRead(potPin);           // Read the value from the potentiometer
+  ledBrightness = map(potValue, 0, 1023, 0, 255); // Map the potentiometer value (0-1023) to LED brightness (0-255)
+  analogWrite(ledPin, ledBrightness);      // Set the LED brightness using the mapped value
+
+  // Print the potentiometer value and corresponding LED brightness to the serial monitor
+  Serial.print("Potentiometer Value: ");
+  Serial.print(potValue);
+  Serial.print(" -> LED Brightness: ");
+  Serial.println(ledBrightness);
+
+  delay(10);  // Short delay to avoid overloading the serial monitor with too many messages
+}
